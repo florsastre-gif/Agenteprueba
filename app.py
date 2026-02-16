@@ -15,8 +15,6 @@ load_dotenv()
 # 2. DEFINICIÓN DE HERRAMIENTAS (TOOLS)
 search = DuckDuckGoSearchRun()
 wikipedia = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
-
-@tool
 def calculadora_iva(precio_neto: float, tasa: float = 21) -> str:
     """Calcula el precio final con IVA y el monto del impuesto."""
     impuesto = precio_neto * (tasa / 100)
