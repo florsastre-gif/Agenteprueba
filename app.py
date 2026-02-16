@@ -15,6 +15,8 @@ load_dotenv()
 # 2. DEFINICIÓN DE HERRAMIENTAS (TOOLS)
 search = DuckDuckGoSearchRun()
 wikipedia = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
+
+@tool
 def calculadora_iva(precio_neto: float, tasa: float = 21) -> str:
     """Calcula el precio final con IVA y el monto del impuesto."""
     impuesto = precio_neto * (tasa / 100)
@@ -24,6 +26,7 @@ def calculadora_iva(precio_neto: float, tasa: float = 21) -> str:
 tools = [search, wikipedia, calculadora_iva]
 
 # 3. CONFIGURACIÓN DEL MODELO Y PROMPT
+# Asegúrate de tener la clave en Secrets de Streamlit o archivo .env
 llm = ChatGoogleGenerativeAI(model='gemini-1.5-flash')
 
 prompt = ChatPromptTemplate.from_messages([
@@ -59,8 +62,9 @@ if user_input:
             st.write(resultado["output"])
             
         except Exception as e:
-            st.error(f"Hubo un error: {e}")
+            st.error(f"Hubo un error de configuración. Verifica tu API KEY en los Secrets de Streamlit.")
+            st.exception(e)
 
-# Pie de página (Solo visible en local)
 if __name__ == "__main__":
-    print("Aplicación lista para ejecutarse con 'streamlit run app.py'")
+    # Para ejecutar en local usa: streamlit run app.py
+    pass
