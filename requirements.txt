@@ -1,1 +1,5 @@
-wheel==0.45.1
+python-dotenv
+langchain-google-genai
+langchain-community
+duckduckgo-search
+langchain
